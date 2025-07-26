@@ -1,15 +1,16 @@
-// routes.js (ESM version)
+'Access-Control-Allow-Origin'
+
 import express from 'express';
-import User from '../schema/datamodel.js'; // ensure .js is used
+import User from '../schema/datamodel.js';
 
 const router = express.Router();
 
-// Test route
+
 router.get("/", (req, res) => {
   res.send("Welcome to Express.js");
 });
 
-// Register user
+
 router.post("/userregister", async (req, res) => {
   try {
     const { name, email, password } = req.body;
@@ -28,24 +29,29 @@ router.post("/userregister", async (req, res) => {
   }
 });
 
-// Login user
+
 router.post("/userlogin", async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log("Login request received:", email, password);
+
     if (!email || !password) {
+      console.log("Missing credentials");
       return res.status(400).json({ msg: "Email and password are required", status: 400 });
     }
 
     const user = await User.findOne({ email });
     if (!user) {
+      console.log("User not found");
       return res.status(404).json({ msg: "User not found", status: 404 });
     }
 
     if (user.password !== password) {
+      console.log("Wrong password");
       return res.status(401).json({ msg: "Incorrect password", status: 401 });
     }
 
-    // Return complete user info
+    console.log("Login successful");
     res.status(200).json({
       msg: "Login successful",
       status: 200,
@@ -54,9 +60,11 @@ router.post("/userlogin", async (req, res) => {
       email: user.email
     });
   } catch (error) {
+    console.error("Server error:", error);  // 🛠️ log exact error
     res.status(500).json({ msg: "Server error", error, status: 500 });
   }
 });
+
 
 
 export default router;

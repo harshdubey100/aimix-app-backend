@@ -2,7 +2,10 @@ import express from 'express';
 import connectdb from './connectdb.js';
 import cors from "cors";
 import myrouting from './routes/routes.js';
+import Dotenv  from 'dotenv';
 
+
+Dotenv.cofig();
 const myapp = express();
 const PORT = process.env.PORT || 3001;
 

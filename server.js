@@ -5,7 +5,7 @@ import myrouting from './routes/routes.js';
 import Dotenv  from 'dotenv';
 
 
-Dotenv.cofig();
+Dotenv.config();
 const myapp = express();
 const PORT = process.env.PORT || 3001;
 

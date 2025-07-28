@@ -60,7 +60,7 @@ router.post("/userlogin", async (req, res) => {
       email: user.email
     });
   } catch (error) {
-    console.error("Server error:", error);  // 🛠️ log exact error
+    console.error("Server error:", error);
     res.status(500).json({ msg: "Server error", error, status: 500 });
   }
 });
